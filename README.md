@@ -30,15 +30,20 @@ Now it's time in the seeding process to build the tables back up. Consider the o
 
 `treasures` table. Each _treasure_ should have a unique identifier as well as the following properties:
 
-| Property        | Type                  | Required |
-| --------------- | --------------------- | -------- |
-| treasure_name   | string                | true     |
-| colour          | string                | true     |
-| age             | number                | true     |
-| cost_at_auction | floating point number | true     |
-| shop_id\*       | number                | true     |
+| Property          | Type                  | Required |
+| ----------------- | --------------------- | -------- |
+| treasure_name     | string                | true     |
+| colour            | string                | true     |
+| age               | number                | true     |
+| cost_at_auction\* | floating point number | true     |
+| shop_id\*\*       | number                | true     |
 
-\* shop_id should reference a shop in the shops table.
+- \* cost_at_auction represents a monetary value - if the preservation of decimal places is important to you, `FLOAT` alone may not do the trick.
+- \*\* shop_id should reference a shop in the shops table.
+
+You should create a database structure similar to this:
+
+![visual database structure](./database-structure.png)
 
 ### c) Insert the data
 

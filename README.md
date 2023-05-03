@@ -6,7 +6,7 @@ After taking offence at a remark about his business acumen, he has charged headl
 
 ## Part 1: Seeding
 
-Mitch was planning to store all of his data in an Excel spreadsheet but you have informed him that this is a terrible idea. Convinced by your arguments, he made a start on the seed function by creating the `shops` table for the database but needs your help to finish it off.
+Mitch was planning to store all of his data in an Excel spreadsheet but you have informed him that this is a terrible idea. Convinced by your arguments, he made a start on the seed function but needs your help to finish it off.
 
 ### a) Drop the existing tables
 
@@ -14,23 +14,21 @@ The `seed` script provided for you in the `package.json` will run the `seed` fun
 
 > **Hint**: Remember that you'll need create a `.env.development` file (use the `example.env` as a template) and then run the `setup.sql` file to create the databases first
 
-Your first job will be complete the seed function to remove any existing treasures tables. Update the seed function accordingly.
+The seed function has the first step already implemented: drop the treasures table. Your first job will be to update the seed function to remove any existing shops table.
 
 ### b) Create the tables
 
-We need a way of building a table to house our `shops` data.
+Now it's time in the seeding process to build the tables back up. Consider the order in which these tables should be created based on the required columns highlighted below:
 
-Each shop should have a unique identifier and the following properties:
+`shops` table. Each _shop_ should have a unique identifier as well as the following properties:
 
 | Property  | Type   | Required |
 | --------- | ------ | -------- |
 | shop_name | string | true     |
 | owner     | string | true     |
-| slogan    | text   | false    |
+| slogan    | string | false    |
 
-Then you will need to expand the `seed` function to create a `treasures` table.
-
-Each treasure should have a unique identifier and the following properties:
+`treasures` table. Each _treasure_ should have a unique identifier as well as the following properties:
 
 | Property        | Type                  | Required |
 | --------------- | --------------------- | -------- |
@@ -44,7 +42,7 @@ Each treasure should have a unique identifier and the following properties:
 
 ### c) Insert the data
 
-Mitch was going to enter this data by hand, but it was getting a little tiresome. Help him out by updating the **seed** function in `./db/seed.js` for the insertion of data into each table using `node-postgres`.
+Mitch was going to enter this data by hand, but it was getting a little tiresome. Help him out by updating the seed function further to handle the insertion of data into each table.
 
 You will need to think about how to maintain relationships between the data before they are inserted into the db. In the database, treasures should reference the shop they belong to by the **shop_id**.
 
@@ -54,15 +52,15 @@ You will need to think about how to maintain relationships between the data befo
 
 We can break this problem down into a series of utility functions which we can (and should!) test in isolation. Once we are confident they perform the task we have set out, we will have confidence that we can use them in our seed function.
 
--   First understand the problem we have. Our treasures data does not have **shop_id** instead it has a **shop**; we'd like to swap out the two properties!
+- First understand the problem we have. Our treasures data does not have **shop_id** instead it has a **shop**; we'd like to swap out the two properties!
 
--   How do we know which **shop** has which **shop_id** - we won't know until we've inserted in the shop data. We'll need that data back after insertion to find this out.
+- How do we know which **shop** has which **shop_id** - we won't know until we've inserted in the shop data. We'll need that data back after insertion to find this out.
 
--   Can we build a useful data structure which links the **shop:shop_id**
+- Can we build a useful data structure which links the **shop:shop_id**?
 
--   Now we'd like to use this tool to loop through our raw treasure data to swap out the shop for it's shop id.
+- Now we'd like to use this tool to loop through our raw treasure data to swap out the shop for its shop id.
 
-essentially we want to do this
+Essentially we want to do this:
 
 ```js
 [
@@ -96,33 +94,33 @@ Create an endpoint to allow Mitch to view all the treasures currently available.
 
 _responds with all treasures, including the shop name and details_
 
--   each treasure should have the following keys:
+- each treasure should have the following keys:
 
-    -   treasure_id
-    -   treasure_name
-    -   colour
-    -   age
-    -   cost_at_auction
-    -   **shop_name**
+  - treasure_id
+  - treasure_name
+  - colour
+  - age
+  - cost_at_auction
+  - **shop_name**
 
--   default sort criteria: **age**
--   default sort order: **ascending**
+- default sort criteria: **age**
+- default sort order: **ascending**
 
-    -   `/api/treasures`, first result should be the youngest (default)
+  - `/api/treasures`, first result should be the youngest (default)
 
--   Allow a client to sort by `age`, `cost_at_auction` and `treasure_name` with a `sort_by` query.
+- Allow a client to sort by `age`, `cost_at_auction` and `treasure_name` with a `sort_by` query.
 
-    -   _`/api/treasures?sort_by=cost_at_auction`, for example, should respond with a list of treasures, cheapest firsts._
+  - _`/api/treasures?sort_by=cost_at_auction`, for example, should respond with a list of treasures, cheapest firsts._
 
 If you have to use string interpolation here, make sure you validate the input to prevent **SQL INJECTION**.
 
 > **Hint:** Some properties on the response might need to be coerced into numbers to check whether they are sorted correctly. Check out [the documentation for jest-sorted](https://www.npmjs.com/package/jest-sorted#user-content-tobesorted).
 
--   Allow a client to change the sort **order** with an `order` query.
+- Allow a client to change the sort **order** with an `order` query.
 
-    -   `/api/treasures?order=desc`, for example, first result should be the oldest
+  - `/api/treasures?order=desc`, for example, first result should be the oldest
 
--   add the following queries:
-    -   colour e.g. `/api/treasures?colour=gold` responds with gold treasures only
+- add the following queries:
+  - colour e.g. `/api/treasures?colour=gold` responds with gold treasures only
 
 **If you have got this far, well done! Check that you have tested thoroughly and also tested your error handling - then you can have a look at the `additional-tasks.md` file for more endpoints to implement!**

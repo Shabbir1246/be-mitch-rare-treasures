@@ -9,5 +9,5 @@ module.exports = [
   { shop_name: 'shop-a', owner: 'firstname-h', slogan: 'slogan-a' },
   { shop_name: 'shop-j', owner: 'firstname-i', slogan: 'slogan-j' },
   { shop_name: 'shop-k', owner: 'firstname-j', slogan: 'slogan-k' },
-  { shop_name: 'shop-c', owner: 'firstname-c', slogan: 'slogan-c' },
+  { shop_name: 'shop-c', owner: 'firstname-c', slogan: 'slogan-c' }
 ];

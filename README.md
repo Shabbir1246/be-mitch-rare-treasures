@@ -41,6 +41,10 @@ Now it's time in the seeding process to build the tables back up. Consider the o
 - \* cost_at_auction represents a monetary value - if the preservation of decimal places is important to you, `FLOAT` alone may not do the trick.
 - \*\* shop_id should reference a shop in the shops table.
 
+You should create a database structure similar to this:
+
+![visual database structure](./database-structure.png)
+
 ### c) Insert the data
 
 Mitch was going to enter this data by hand, but it was getting a little tiresome. Help him out by updating the seed function further to handle the insertion of data into each table.

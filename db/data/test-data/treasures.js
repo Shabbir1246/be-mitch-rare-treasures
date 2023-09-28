@@ -133,7 +133,7 @@ module.exports = [
     shop: 'shop-a'
   },
   {
-    treasure_name: 'treasure-s',
+    treasure_name: 'treasure-s',  
     colour: 'silver',
     age: 9,
     cost_at_auction: '12.99',

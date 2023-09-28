@@ -3,4 +3,5 @@ const seed = require('./seed');
 
 const db = require('./');
 
+
 seed(data).then(() => db.end());

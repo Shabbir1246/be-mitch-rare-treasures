@@ -41,8 +41,8 @@ function insertIntoShops(shopData){
 	INSERT INTO shops
 	(shop_name, owner, slogan)
 	VALUES
-	$L
-	RETURNING*;`, formattedShops)
+	%L
+	RETURNING*;`, formattedShops);
 	
 	
    return db.query(insertShopsString)

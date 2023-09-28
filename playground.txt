@@ -1,0 +1,9 @@
+You are now connected to database "mitchs_rare_treasures" as user "ethel".
+ shop_id | shop_name | owner | slogan 
+---------+-----------+-------+--------
+(0 rows)
+
+ treasure_id | treasure_name | colour | age | cost_at_auction | shop_id 
+-------------+---------------+--------+-----+-----------------+---------
+(0 rows)
+

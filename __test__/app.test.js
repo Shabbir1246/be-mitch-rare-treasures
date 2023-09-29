@@ -26,12 +26,14 @@ describe("GET /api/treasures", () => {
             .get('/api/treasures')
             .expect(200)
             .then(({ body }) => {
-                expect(body.treasures).toHaveLength(4)
+                expect(body.treasures).toHaveLength(26)
                 body.treasures.forEach((treasure) => {
-                    expect(typeof (treasure_name)).toBe('string')
-                    expect(typeof (treasure_id)).toBe('number')
-                
+                    expect(typeof (treasure.treasure_name)).toBe('string')
+                    expect(typeof (treasure.colour)).toBe('string')
+                    expect(typeof (treasure.treasure_id)).toBe('number')
                     expect(typeof (treasure.age)).toBe('number')
+                    expect(typeof (treasure.cost_at_auction)).toBe('number')
+                    expect(typeof (treasure.shop_name)).toBe('string')
                 });
 
             });

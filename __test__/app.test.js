@@ -77,6 +77,15 @@ describe("GET /api/treasures", () => {
 
             })
     })
+    test('returns 400 and error message when passed invalid order by', () => {
+        return request(app)
+            .get('/api/treasures?order=invalidOrder')
+            .expect(400)
+            .then(({ body }) => {
+                expect(body.msg).toBe('Invalid sort order')
+
+            })
+    })
 
     test("return 404 and message when passed an incorrext paths", () => {
         return request(app)
@@ -86,6 +95,27 @@ describe("GET /api/treasures", () => {
                 expect(body.msg).toBe('Path not found')
             })
     })
+    test('query returns treasures sorted by age given order', () => {
+        return request(app)
+            .get('/api/treasures?order=desc')
+            .expect(200)
+            .then(({ body }) => {
+                const treasures = body.treasures
+                expect(treasures).toBeSorted({ key: 'age', descending: true})
+
+            })
+    })
+    test('query returns treasures sorted by given column and ordered by given order', () => {
+        return request(app)
+            .get('/api/treasures?sort_by=cost&order=desc')
+            .expect(200)
+            .then(({ body }) => {
+                const treasures = body.treasures
+                expect(treasures).toBeSorted({ key: 'cost_at_auction', descending: true})
+
+            })
+    })
+  
 })
 
 

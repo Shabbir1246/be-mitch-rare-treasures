@@ -12,6 +12,7 @@ exports.fetchTreasures = (clientQuery) =>{
     }
     const sort_by = clientQuery.sort_by
     const order   = clientQuery.order
+
     const validSortBys ={
         cost: 'cost_at_auction',
         name: 'treasure_name',
@@ -21,6 +22,11 @@ exports.fetchTreasures = (clientQuery) =>{
         asc: 'ASC',
         desc: 'DESC'
     }
+
+    const validColours ={
+        colour: 'gold' 
+    }
+    
     if(!(sort_by in validSortBys)){
         return Promise.reject({status: 400, msg: 'Invalid sort_by query'})
     }
@@ -28,8 +34,11 @@ exports.fetchTreasures = (clientQuery) =>{
         return Promise.reject({status: 400, msg: 'Invalid sort order'})
     }
     let query = `SELECT * FROM treasures`
-    query += ` ORDER BY ${validSortBys[sort_by]} ${validOrders[order]} `
-
+    
+    if (Object.hasOwn(clientQuery, 'colour')){
+       query += ` WHERE colour = '${validColours.colour}'`
+    }
+    query += ` ORDER BY ${validSortBys[sort_by]} ${validOrders[order]};`
 
     return db.query(query)
     .then(({rows}) =>{

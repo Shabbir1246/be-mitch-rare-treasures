@@ -115,6 +115,19 @@ describe("GET /api/treasures", () => {
 
             })
     })
+    test('return 200 code and inputted colour treasures when passed colour query', () => {
+        return request(app)
+            .get('/api/treasures?colour=gold')
+            .expect(200)
+            .then(({ body }) => {
+                const treasures = body.treasures
+                treasures.forEach((treasure)=>{
+                    expect(treasure.colour).toBe('gold')
+                })
+
+
+            })
+    })
   
 })
 
